@@ -1,6 +1,6 @@
 # Evented Bootstrap Toolkit
 
-This is a extension of Maciej Gurban's Responsive Bootstrap Toolkit. To quote Maciej, the toolkit "provides an easy way of breakpoint detection in JavaScript, detecting changes in currently active breakpoint, as well as executing any breakpoint-specific JavaScript code."
+This is a extension of Maciej Gurban's [Responsive Bootstrap Toolkit](https://github.com/maciej-gurban/responsive-bootstrap-toolkit). To quote Maciej, the toolkit "provides an easy way of breakpoint detection in JavaScript, detecting changes in currently active breakpoint, as well as executing any breakpoint-specific JavaScript code."
 
 This modification adds custom events which will trigger whenever the viewport switches between one of the specified viewport sizes, providing the old and new viewport size as data to the event.
 
@@ -8,7 +8,7 @@ Current version: 0.0.0
 
 ### JavaScript
 #### Checking which breakpoint is active
-Checking what size the viewport is remains the same as in the original.
+Checking what size the viewport is remains the same as in [the original](https://github.com/maciej-gurban/responsive-bootstrap-toolkit).
 
 ````javascript
 if (viewport.is('xs')) {
@@ -21,6 +21,8 @@ if (viewport.is('lg')) {
 ````
 
 #### Registering an object for breakpoint events
+Registering events is the innovation of this modification. To register, just 
+
 ````javascript
 var $content = $("#content");
 
@@ -39,10 +41,27 @@ $content.on("viewportResize", function(event, oldSize, newSize){
 $content.off("viewportResize");
 App.viewport.removeTarget($content);
 ````
+
+This allows for easy integration in Backbone.js and other frontend frameworks.
+````javascript
+	events: {
+		"viewportResize": "resizeHandler"
+	},
+	initialize: function(){
+		App.viewport.registerTarget(this.$el);
+	},
+    remove: function() {
+		App.viewport.removeTarget(this.$el);
+        Backbone.View.prototype.remove.apply(this, arguments);
+    },
+	resizeHandler: function(event, oldSize, newSize){
+		//do stuff
+	}
+````
 ### How do I include it in my project?
 #### JavaScript
 
-(Again this is the same as the original Responsive Bootstrap Toolkit)
+(Again this is the same as the original [Responsive Bootstrap Toolkit](https://github.com/maciej-gurban/responsive-bootstrap-toolkit))
 
 Include just before `</body>`
 
@@ -54,7 +73,7 @@ Include just before `</body>`
 <div class="device-lg visible-lg"></div>
 
 <!-- Responsive Bootstrap Toolkit -->
-<script src="js/bootstrap-toolkit.min.js"></script>
+<script src="js/bootstrap-toolkit.js"></script>
 
 <!-- Your scripts using Bootstrap Toolkit -->
 <script src="js/main.js"></script>
