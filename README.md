@@ -1,6 +1,6 @@
 # Evented Bootstrap Toolkit
 
-This is a extension of Maciej Gurban's [Responsive Bootstrap Toolkit](https://github.com/maciej-gurban/responsive-bootstrap-toolkit). To quote Maciej, the toolkit "provides an easy way of breakpoint detection in JavaScript, detecting changes in currently active breakpoint, as well as executing any breakpoint-specific JavaScript code."
+This is a modification of Maciej Gurban's [Responsive Bootstrap Toolkit](https://github.com/maciej-gurban/responsive-bootstrap-toolkit). To quote Maciej, the toolkit "provides an easy way of breakpoint detection in JavaScript, detecting changes in currently active breakpoint, as well as executing any breakpoint-specific JavaScript code."
 
 This modification adds custom events which will trigger whenever the viewport switches between one of the specified viewport sizes, providing the old and new viewport size as data to the event.
 
@@ -58,6 +58,9 @@ This allows for easy integration in Backbone.js and other frontend frameworks.
 		//do stuff
 	}
 ````
+### Please note
+This version removes the #changed method of the Reponsive Bootstrap Toolkit
+
 ### How do I include it in my project?
 #### JavaScript
 
