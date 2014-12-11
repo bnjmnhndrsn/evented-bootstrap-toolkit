@@ -1,6 +1,6 @@
 /*!
  * Title: Evented Bootstrap Toolkit
- * Original Name: Responsive Bootstrap Toolkit
+ * Original Title: Responsive Bootstrap Toolkit
  * Original Author: Maciej Gurban
  * Modified by: Ben Henderson
  * License:   MIT
