@@ -1,13 +1,9 @@
-# Responsive Bootstrap Toolkit
+# Evented Bootstrap Toolkit
 
+This is a modification of Maciej Gurban's Responsive Bootstrap Toolkit. To quote Maciej, the toolkit "provides an easy way of breakpoint detection in JavaScript, detecting changes in currently active breakpoint, as well as executing any breakpoint-specific JavaScript code."
 
-Responsive Bootstrap Toolkit provides an easy way of breakpoint detection in JavaScript, detecting changes in currently active breakpoint, as well as executing any breakpoint-specific JavaScript code.
-
-The SASS module enables quick and simple styling for elements needing different property values for each screen resolution.
-
-Current version: 2.1.0
-
-[See a live example on CodePen](http://codepen.io/dih/full/ivECj)
+This modification adds events 
+Current version: 0.0.0
 
 ### JavaScript
 #### Checking which breakpoint is active
@@ -21,64 +17,6 @@ if (viewport.is('lg')) {
   // do stuff on huge screens only
 }
 ````
-
-#### Executing a script whenever window is resized
-##### Default interval, 300 ms
-
-````javascript
-$(window).bind('resize', function() {
-    viewport.changed(function() {
-    
-      // do some other stuff!
-      
-    })
-});
-````
-
-##### Custom interval
-
-````javascript
-$(window).bind('resize', function() {
-    viewport.changed(function() {
-    
-      // do some other stuff!
-      
-    }, 600)
-});
-````
-
-### SASS
-#### Set different CSS property value per breakpoint
-
-````css
-h1 {
-    @include set(font-size, (xs: 20px, sm: 24px, md: 24px, lg: 30px) ); 
-}
-````
-
-You don't need to specify a value for each of the breakpoints. One is enough, four is the max. Example below will work just as well:
-
-````css
-h1 {
-    @include set(font-size, (xs: 20px, lg: 30px) );
-}
-````
-
-Output:
-
-````css
-@media (max-width: 767px) {
-  h1 {
-    font-size: 20px;
-  }
-}
-@media (min-width: 1200px) {
-  h1 {
-    font-size: 30px;
-  }
-}
-````
-
 
 ### How do I include it in my project?
 #### JavaScript

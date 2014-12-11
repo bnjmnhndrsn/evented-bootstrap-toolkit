@@ -1,12 +1,18 @@
 /*!
- * Responsive Bootstrap Toolkit
- * Author:    Maciej Gurban
- * License:   MIT
- * Version:   2.0.0 (2014-08-23)
- * Origin:    https://github.com/maciej-gurban/responsive-bootstrap-toolkit
+ * Evented Responsive Bootstrap Toolkit
+ * Original Author: Maciej Gurban
+ * Modified by: Ben Henderson
+ * Original License:   MIT
+ * Version:   0.0.0 (12 - 10 - 14)
+ * Original Location:    https://github.com/maciej-gurban/responsive-bootstrap-toolkit
  */
 ;var ResponsiveBootstrapToolkit = (function($){
-
+	var 
+		_size  = null, 
+		_timers = {},
+		_waitOnResize
+	;
+	
     // Methods and properties
     var self = {
 
@@ -20,28 +26,53 @@
         is: function( alias ) {
             return $('.device-' + alias).is(':visible');
         },
-
-        /* 
-         * Waits specified number of miliseconds before executing a function
-         * Source: http://stackoverflow.com/a/4541963/2066118
-         */
-        changed: function() {
-            var timers = {};
-            return function (callback, ms) {
-                // Get unique timer ID
-                var uID = (!uID) ? self.timer.getTime() : null;
-                if (timers[uID]) {
-                    clearTimeout(timers[uID]);
-                }
-                // Use default interval if none specified
-                if(typeof ms === "undefined") {
-                    var ms = self.interval;
-                }
-                timers[uID] = setTimeout(callback, ms);
-            };
-        }()
+		
+		size: function(){
+			var options = ["xs", "sm", "md", "lg"];
+			for (var i = 0; i < options.length; i++){
+				if (self.is(options[i])){
+					
+					_size = options[i];
+					return options[i];
+				}
+			}
+			
+			return null;
+		}
 
     }
+		
+	_waitOnResize = function(callback){
+        var uID = (!uID) ? self.timer.getTime() : null;
+        if (_timers[uID]) {
+            clearTimeout(_timers[uID]);
+        }
+ 
+        _timers[uID] = setTimeout(callback, self.interval);
+	};
+	
+	//caches current size of window and establishes resize handler with custom events
+	$(function(){
+		
+		//cache initial window size
+		self.size();
+		
+		//establih resize handler
+		$(window).resize(function(){
+            _waitOnResize(function(){
+            	var oldSize = _size,
+					newSize = self.size();
+				
+				//publishes event if viewport has changed size since last resize event
+				if (oldSize !== newSize){
+					$(window).trigger(
+						"viewportResize", 
+						{oldSize: oldSize, newSize: newSize}
+					);
+				}
+            });
+		});
+	});
 
     return self;
 
