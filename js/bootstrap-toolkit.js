@@ -23,7 +23,7 @@
         is: function( alias ) {
             return $('.device-' + alias).is(':visible');
         },
-		registerEvent: function(_target){
+		registerTarget: function(_target){
 			//establishes resize handler on window if it doesn't exist
 			if (!self._handler) {
 				self.bindWindowListener();
@@ -36,15 +36,23 @@
 			self.size();
 			
 			//adds target to targets array
-			self._targets.push( $(target) );
+			self._$targets.push( $(target) );
 		},
-		
+		removeTarget: function($target){
+			for (var i = 0; i < self._$targets.length; i++){
+				if ($target.is(self._$targets[i])){
+					self._$targets.splice(i, 1);
+					return true;
+				}
+			}
+			return false;
+		},
 		size: function(){
 			var options = ["xs", "sm", "md", "lg"];
 			for (var i = 0; i < options.length; i++){
 				if (self.is(options[i])){
 					
-					_size = options[i];
+					self._size = options[i];
 					return options[i];
 				}
 			}
@@ -66,7 +74,7 @@
 				newSize = self.size();
 			
 			if (oldSize !== newSize) {
-				$.each(_targets, function(){
+				$.each(self._$targets, function(){
 					this.trigger("viewportResize", [oldSize, newSize]);
 				});
 			}
